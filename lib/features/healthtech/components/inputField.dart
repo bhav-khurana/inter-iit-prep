@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:interiit_prep/shared/appColors.dart';
 
 class InputField extends StatefulWidget {
@@ -22,6 +23,9 @@ class _InputFieldState extends State<InputField> {
       controller: widget.controller,
       decoration: InputDecoration(
         hintText: widget.hint,
+        hintStyle: GoogleFonts.lato(
+          fontSize: 14
+        ),
         focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColors.greenColor)
         )
