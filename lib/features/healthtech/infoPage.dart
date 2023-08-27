@@ -32,21 +32,23 @@ class _InfoPageState extends State<InfoPage> {
         MediumText(text: widget.question),
         const SizedBox(height: 14,),
         InputField(controller: widget.controller, hint: widget.hint),
-        const SizedBox(height: 20,),
+        const SizedBox(height: 24,),
         widget.isLastPage ? Text(
           'Get Started',
           style: GoogleFonts.lato(
               textStyle: const TextStyle(
-                  fontSize: 16,
-                  color: AppColors.infoGreyColor
+                fontSize: 20,
+                color: AppColors.greenColor,
+                fontWeight: FontWeight.w500,
+                decoration: TextDecoration.underline
               )
           ),
         ) : Text(
           'Swipe for next >',
           style: GoogleFonts.lato(
               textStyle: const TextStyle(
-                  fontSize: 16,
-                  color: AppColors.infoGreyColor
+                fontSize: 16,
+                color: AppColors.infoGreyColor
               )
           ),
         ),
