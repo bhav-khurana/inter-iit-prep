@@ -33,7 +33,6 @@ class _HealthTechScreenState extends State<HealthTechScreen> {
       //         _curr = num;
       //       });
       //     },
-      //
       //     children: [
       //       InfoPage(question: 'What\'s your gender?', hint: 'Male/Female', controller: genderController, isLastPage: false,),
       //       InfoPage(question: 'What\'s your current weight? (in kg)', hint: 'e.g. 50, 65', controller: weightController, isLastPage: false,),

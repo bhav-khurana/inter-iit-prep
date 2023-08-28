@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:interiit_prep/features/healthtech/infoPage.dart';
 
 class FoodTechScreen extends StatefulWidget {
   const FoodTechScreen({Key? key}) : super(key: key);
@@ -8,8 +9,15 @@ class FoodTechScreen extends StatefulWidget {
 }
 
 class _FoodTechScreenState extends State<FoodTechScreen> {
+
+  TextEditingController doctorController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: InfoPage(question: 'Which doctor you want to book an appointment with?', hint: 'e.g. cardiologist, neurologist', controller: doctorController, isLastPage: true,),
+      ),
+    );
   }
 }
