@@ -29,8 +29,8 @@ class _CircleProgressState extends State<CircleProgress> {
             'Intake',
             style: GoogleFonts.lato(
               textStyle: TextStyle(
-                  fontSize: 12,
-                  color: AppColors.primaryColor
+                  fontSize: 13,
+                  color: Colors.white
               ),
             ),
             textAlign: TextAlign.center,
@@ -48,8 +48,8 @@ class _CircleProgressState extends State<CircleProgress> {
           Spacer()
         ],
       ),
-      backgroundColor: AppColors.primaryBlackColor,
-      progressColor: AppColors.primaryColor,
+      backgroundColor: Colors.white,
+      progressColor: Color(0xffffbc11),
     );
   }
 }

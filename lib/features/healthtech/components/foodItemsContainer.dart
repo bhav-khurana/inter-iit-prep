@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interiit_prep/features/healthtech/components/inputField.dart';
 import 'package:interiit_prep/features/healthtech/components/itemTile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../shared/appColors.dart';
 
@@ -19,10 +22,20 @@ class _FoodItemsContainerState extends State<FoodItemsContainer> {
   TextEditingController newItemController = TextEditingController();
   TextEditingController newQuantityController = TextEditingController();
 
-  List items = [
-    ['Rice', '2 bowls'],
-    ['Milk', '3 cups'],
-  ];
+  List items = [];
+
+  Future<void> setItemList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    items = jsonDecode(prefs.getString('${widget.foodType}ItemList') ?? jsonEncode([]));
+
+  }
+
+  Future<void> addItemToList(String item, String quantity) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    items = jsonDecode(prefs.getString('${widget.foodType}ItemList') ?? jsonEncode([]));
+    items.add([item, quantity]);
+    await prefs.setString('${widget.foodType}ItemList', jsonEncode(items));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +66,25 @@ class _FoodItemsContainerState extends State<FoodItemsContainer> {
           Divider(height: 18, thickness: 1,),
 
           // todo: List
-          for (var item in items)
-            ItemTile(item: item[0], quantity: item[1]),
+          FutureBuilder(
+            future: setItemList(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return Center(child: Text('Error'),);
+                }
+                return Column(
+                  children: [
+                    for (var item in items)
+                      ItemTile(item: item[0], quantity: item[1]),
+                  ],
+                );
+              }
+              return Center(child: CircularProgressIndicator(),);
+            },
+          ),
+
 
           Row(
             children: [
@@ -68,9 +98,9 @@ class _FoodItemsContainerState extends State<FoodItemsContainer> {
                 child: InputField(controller: newQuantityController, hint: 'Add Quantity'),
               ),
               Spacer(),
-              IconButton(icon: Icon(Icons.add, color: AppColors.greenColor,), onPressed: (){
+              IconButton(icon: Icon(Icons.add, color: AppColors.greenColor,), onPressed: () async {
 
-                items.add([newItemController.text, newQuantityController.text]);
+                await addItemToList(newItemController.text, newQuantityController.text);
                 newItemController.text = '';
                 newQuantityController.text = '';
                 setState(() {});
