@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:interiit_prep/features/welcome/welcomeScreen.dart';
 import 'package:interiit_prep/shared/appColors.dart';
@@ -6,6 +7,8 @@ import 'package:interiit_prep/shared/appColors.dart';
 import 'home.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,

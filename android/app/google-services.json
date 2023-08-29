@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "885101120987",
+    "project_id": "interiit-prep",
+    "storage_bucket": "interiit-prep.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885101120987:android:155a4068ff01d354da6bfe",
+        "android_client_info": {
+          "package_name": "com.example.interiit_prep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885101120987-5l97jmbomvfmlmb47b1174ftdnjdfkf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvGWok6Nc7fyXg70tCUezriw5YcIoUYaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885101120987-5l97jmbomvfmlmb47b1174ftdnjdfkf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

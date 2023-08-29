@@ -38,7 +38,7 @@ class _InfoPageState extends State<InfoPage> {
         const SizedBox(height: 24,),
         if (widget.isLastPage) GestureDetector(
           onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorList()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorList(type: widget.controller.text)));
           },
           child: Text(
             'Get Started',

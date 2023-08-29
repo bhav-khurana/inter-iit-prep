@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:interiit_prep/features/foodtech/components/doctorCard.dart';
 import 'package:interiit_prep/features/foodtech/components/endButton.dart';
 import 'package:interiit_prep/features/healthtech/components/inputField.dart';
 import 'package:interiit_prep/shared/appColors.dart';
@@ -8,7 +9,15 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({Key? key}) : super(key: key);
+  const DetailsPage({
+    Key? key,
+    required this.name,
+    required this.desc,
+    required this.availability,
+    required this.image,
+}) : super(key: key);
+
+  final String name, desc, availability, image;
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -16,7 +25,7 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
 
-  String appointmentDate = 'Tomorrow (27 Dec)';
+  String appointmentDate = 'Tomorrow (29 Aug)';
 
   _makePhoneCall(int phoneNo) async {
     var url = Uri.parse('tel:$phoneNo');
@@ -33,13 +42,13 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
 
     var val = DateTime.parse('2022-12-27 09:00:00');
-    
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               MediumText(text: 'Book Appointment'),
@@ -48,8 +57,9 @@ class _DetailsPageState extends State<DetailsPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(width: 0.4),
+                  // border: Border.all(width: 0.4),
                   borderRadius: BorderRadius.circular(15),
+                  color: Colors.white
                 ),
                 child: Center(
                   child: DropdownButton(
@@ -57,11 +67,13 @@ class _DetailsPageState extends State<DetailsPage> {
                         fontSize: 16,
                         color: AppColors.primaryBlackColor
                     ),
+                    dropdownColor: Colors.white,
+                    // focusColor: Colors.white,
                     isExpanded: true,
                     itemHeight: null,
                     value: appointmentDate,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    items: ['Tomorrow (27 Dec)', '28 Dec', '29 Dec'].map((String item) {
+                    items: ['Tomorrow (29 Aug)', '30 Aug', '31 Aug'].map((String item) {
                       return DropdownMenuItem(
                         value: item,
                         child: Text(
@@ -83,69 +95,9 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 18,),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 52,
-                        height: 52,
-                        decoration: BoxDecoration(
-                            image: const DecorationImage(
-                              image: AssetImage('assets/avatar.png'),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(30)
-                        ),
-                      ),
-                      const SizedBox(width: 16,),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Dr Anil Gupta',
-                            style: GoogleFonts.lato(
-                                textStyle: const TextStyle(
-                                    fontSize: 17,
-                                    color: AppColors.primaryBlackColor
-                                )
-                            ),
-                          ),
-                          const SizedBox(height: 4,),
-                          Text(
-                            'Skin Specialist (MBBS, MD)',
-                            style: GoogleFonts.lato(
-                                textStyle: const TextStyle(
-                                    fontSize: 13,
-                                    color: AppColors.infoGreyColor
-                                )
-                            ),
-                          ),
-                          Text(
-                            '9am - 5pm',
-                            style: GoogleFonts.lato(
-                                textStyle: const TextStyle(
-                                    fontSize: 13,
-                                    color: AppColors.infoGreyColor
-                                )
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        icon: const Icon(Icons.call, color: AppColors.greenColor,),
-                        onPressed: () async {
-                          await _makePhoneCall(7087341267);
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12,),
+              const SizedBox(height: 14,),
+              DoctorCard(name: widget.name, desc: widget.desc, availability: widget.availability, image: widget.image.isNotEmpty ? widget.image : 'assets/avatar.png',),
+              const SizedBox(height: 8,),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: InputField(controller: nameController, hint: 'Enter Patient Name'),
@@ -153,7 +105,7 @@ class _DetailsPageState extends State<DetailsPage> {
               const SizedBox(height: 10,),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: InputField(controller: nameController, hint: 'Any Comments you want to add'),
+                child: InputField(controller: commentController, hint: 'Any Comments you want to add'),
               ),
               const SizedBox(height: 20,),
               Flexible(
@@ -162,7 +114,11 @@ class _DetailsPageState extends State<DetailsPage> {
                   children: [
                     Flexible(
                       child: Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                         child: ListWheelScrollView(
                             clipBehavior: Clip.antiAlias,
                             diameterRatio: 80,
@@ -170,22 +126,31 @@ class _DetailsPageState extends State<DetailsPage> {
                               parent: BouncingScrollPhysics(),
                             ),
                             useMagnifier: true,
-                            magnification: 1,
-                            itemExtent: 50,
+                            magnification: 1.1,
+                            itemExtent: 60,
                             children: [
+                              Center(
+                                child: Text('-- Choose Slot --', style: GoogleFonts.lato(
+                                    fontSize: 19,
+                                    color: AppColors.primaryBlackColor
+                                ),),
+                              ),
                               for (int i = 1; i <= 20; i++)
                                 Row(
                                   children: [
                                     // const SizedBox(width: 137,),
+                                    SizedBox(width: 20,),
                                     Text('$i ', style: GoogleFonts.lato(
                                         fontSize: 19,
                                       color: AppColors.primaryBlackColor
                                     ),),
                                     const Spacer(),
-                                    Text('${DateFormat.jm().format((val=val.add(const Duration(minutes: 15))))} to ${DateFormat.jm().format(val.add(const Duration(minutes: 15)))}', style: GoogleFonts.lato(
+                                    Text('${DateFormat.jm().format((val=val.add(const Duration(minutes: 15))))} - ${DateFormat.jm().format(val.add(const Duration(minutes: 15)))}',
+                                      style: GoogleFonts.lato(
                                         fontSize: 16,
                                         color: AppColors.primaryBlackColor,
-                                    ),)
+                                    ),),
+                                    SizedBox(width: 20,),
                                   ],
                                 )
                             ]
