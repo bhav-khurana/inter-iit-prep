@@ -13,10 +13,30 @@ class MediumText extends StatelessWidget {
       text,
       style: GoogleFonts.lato(
           textStyle: const TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               color: AppColors.primaryBlackColor
           )
       ),
     );
   }
 }
+
+class TitleText extends StatelessWidget {
+  const TitleText({Key? key, required this.text}) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: GoogleFonts.lato(
+          textStyle: const TextStyle(
+              fontSize: 26,
+              color: AppColors.primaryBlackColor
+          )
+      ),
+    );
+  }
+}
+

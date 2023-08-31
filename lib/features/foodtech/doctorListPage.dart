@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:interiit_prep/features/foodtech/components/doctorCard.dart';
+import 'package:interiit_prep/features/foodtech/components/infoText.dart';
 import 'package:interiit_prep/features/foodtech/detailsPage.dart';
 import 'package:interiit_prep/shared/textWidgets.dart';
 
@@ -43,11 +44,13 @@ class _DoctorListState extends State<DoctorList> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              MediumText(text: 'Available Doctors'),
+              Center(child: MediumText(text: 'Available Doctors')),
               SizedBox(height: 20,),
               FutureBuilder(
                 future: getDoctors(),
+
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasError) {
@@ -55,7 +58,25 @@ class _DoctorListState extends State<DoctorList> {
                       return Text('Error');
                     }
                     List doctors = snapshot.data ?? [];
+                    if (doctors.isEmpty) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height*0.7,
+                        child: Column(
+                          children: [
+                            Spacer(),
+                            Container(
+                              width: 200,
+                              child: InfoText(
+                                text: 'Oops! No such doctors available at the moment',
+                              ),
+                            ),
+                            Spacer(),
+                          ],
+                        ),
+                      );
+                    }
                     return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         for (var doctor in doctors)
                           GestureDetector(

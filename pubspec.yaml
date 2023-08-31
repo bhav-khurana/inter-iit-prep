@@ -45,6 +45,8 @@ dependencies:
   intl:
   cloud_firestore: ^4.9.0
   firebase_core: ^2.15.1
+  file_picker: ^5.2.5
+  pdf_text: ^0.5.0
 
 
 dev_dependencies:
