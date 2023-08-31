@@ -13,7 +13,7 @@ class MediumText extends StatelessWidget {
       text,
       style: GoogleFonts.lato(
           textStyle: const TextStyle(
-              fontSize: 18,
+              fontSize: 20,
               color: AppColors.primaryBlackColor
           )
       ),

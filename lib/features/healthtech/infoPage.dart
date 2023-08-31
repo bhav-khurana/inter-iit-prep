@@ -12,14 +12,14 @@ class InfoPage extends StatefulWidget {
     required this.question,
     required this.hint,
     required this.controller,
-    required this.isLastPage,
-    this.nextPage,
+    required this.buttonText,
+    required this.func,
   }) : super(key: key);
 
   final String question, hint;
   final TextEditingController controller;
-  final bool isLastPage;
-  final Widget? nextPage;
+  final String buttonText;
+  final Function func;
 
   @override
   State<InfoPage> createState() => _InfoPageState();
@@ -36,30 +36,22 @@ class _InfoPageState extends State<InfoPage> {
         const SizedBox(height: 14,),
         InputField(controller: widget.controller, hint: widget.hint),
         const SizedBox(height: 24,),
-        if (widget.isLastPage) GestureDetector(
+        GestureDetector(
           onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => DoctorList(type: widget.controller.text)));
+            widget.func();
           },
           child: Text(
-            'Get Started',
+            widget.buttonText,
             style: GoogleFonts.lato(
                 textStyle: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   color: AppColors.greenColor,
                   fontWeight: FontWeight.w500,
                   decoration: TextDecoration.underline
                 )
             ),
           ),
-        ) else Text(
-          'Swipe for next >',
-          style: GoogleFonts.lato(
-              textStyle: const TextStyle(
-                fontSize: 16,
-                color: AppColors.infoGreyColor
-              )
-          ),
-        ),
+        )
       ],
     );
   }

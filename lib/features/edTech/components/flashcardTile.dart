@@ -28,7 +28,7 @@ class _FlashcardTileState extends State<FlashcardTile> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Colors.white,
-        border: Border.all(color: AppColors.greenColor)
+        // border: Border.all(color: AppColors.greenColor)
       ),
       padding: EdgeInsets.all(16),
       child: Row(
