@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:interiit_prep/features/foodtech/components/doctorCard.dart';
 import 'package:interiit_prep/features/foodtech/components/infoText.dart';
 import 'package:interiit_prep/features/foodtech/detailsPage.dart';
+import 'package:interiit_prep/shared/customAppBar.dart';
 import 'package:interiit_prep/shared/textWidgets.dart';
 
 import '../../shared/appColors.dart';
@@ -46,7 +47,7 @@ class _DoctorListState extends State<DoctorList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(child: MediumText(text: 'Available Doctors')),
+              CustomAppBar(title: 'Available Doctors'),
               SizedBox(height: 20,),
               FutureBuilder(
                 future: getDoctors(),

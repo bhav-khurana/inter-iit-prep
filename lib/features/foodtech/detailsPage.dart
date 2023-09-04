@@ -8,6 +8,8 @@ import 'package:interiit_prep/shared/textWidgets.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../shared/customAppBar.dart';
+
 class DetailsPage extends StatefulWidget {
   const DetailsPage({
     Key? key,
@@ -51,7 +53,7 @@ class _DetailsPageState extends State<DetailsPage> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              MediumText(text: 'Book Appointment'),
+              CustomAppBar(title: 'Book Appointment'),
               SizedBox(height: 16,),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

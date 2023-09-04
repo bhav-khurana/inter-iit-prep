@@ -6,6 +6,7 @@ import 'package:interiit_prep/features/foodtech/components/endButton.dart';
 import 'package:interiit_prep/features/foodtech/components/infoText.dart';
 import 'package:interiit_prep/features/healthtech/components/inputField.dart';
 import 'package:interiit_prep/shared/appColors.dart';
+import 'package:interiit_prep/shared/customAppBar.dart';
 import 'package:interiit_prep/shared/textWidgets.dart';
 import 'package:pdf_text/pdf_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,7 +62,7 @@ class _CreateSetPageState extends State<CreateSetPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TitleText(text: 'Create Set'),
+              CustomAppBar(title: 'Create Set'),
               SizedBox(height: 40,),
               MediumText(text: 'Enter set name'),
               InputField(controller: nameController, hint: 'e.g. Anatomy, Compounds'),

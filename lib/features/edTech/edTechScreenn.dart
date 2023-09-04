@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interiit_prep/features/edTech/components/flashcardTile.dart';
 import 'package:interiit_prep/features/edTech/createSetPage.dart';
+import 'package:interiit_prep/features/edTech/flashcardsPage.dart';
 import 'package:interiit_prep/shared/appColors.dart';
 import 'package:interiit_prep/shared/textWidgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../foodtech/components/infoText.dart';
 
 class EdTechScreen extends StatefulWidget {
   const EdTechScreen({Key? key}) : super(key: key);
@@ -28,6 +31,7 @@ class _EdTechScreenState extends State<EdTechScreen> {
     }
     return flashcardSets;
   }
+
   @override
   Widget build(BuildContext context) {
     getFlashcardSets();
@@ -71,10 +75,34 @@ class _EdTechScreenState extends State<EdTechScreen> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   List sets = snapshot.data ?? [];
+                  if (sets.isEmpty) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height*0.5,
+                      child: Column(
+                        children: [
+                          Spacer(),
+                          Center(
+                            child: Container(
+                              width: 200,
+                              child: InfoText(
+                                text: 'Tap on Create New to start creating flashcard sets',
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                        ],
+                      ),
+                    );
+                  }
                   return Column(
                     children: [
                       for (var set in sets)
-                        FlashcardTile(name: set['name'], noOfCards: set['noOfCards'])
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => FlashcardsPage()));
+                          },
+                          child: FlashcardTile(name: set['name'], noOfCards: set['noOfCards']),
+                        )
                     ],
                   );
                 }
