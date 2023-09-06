@@ -82,9 +82,9 @@ class _DoctorListState extends State<DoctorList> {
                         for (var doctor in doctors)
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(name: doctor['name'], desc: doctor['specialization'], availability: doctor['availability'], image: doctor['image'])));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(name: doctor['name'], desc: doctor['specialization'], availability: doctor['availability'], image: doctor['image'], phoneNo: doctor['phoneNo'],)));
                             },
-                            child: DoctorCard(name: doctor['name'], desc: doctor['specialization'], availability: doctor['availability'], image: doctor['image'].isNotEmpty ? doctor['image'] : 'assets/avatar.png'),
+                            child: DoctorCard(name: doctor['name'], desc: doctor['specialization'], availability: doctor['availability'], image: doctor['image'].isNotEmpty ? doctor['image'] : 'assets/avatar.png', phoneNo: doctor['phoneNo'],),
                           ),
                       ],
                     );

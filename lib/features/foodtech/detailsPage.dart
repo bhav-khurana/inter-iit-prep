@@ -17,9 +17,11 @@ class DetailsPage extends StatefulWidget {
     required this.desc,
     required this.availability,
     required this.image,
+    required this.phoneNo,
 }) : super(key: key);
 
   final String name, desc, availability, image;
+  final int phoneNo;
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -28,11 +30,6 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
 
   String appointmentDate = 'Tomorrow (8 Sept)';
-
-  _makePhoneCall(int phoneNo) async {
-    var url = Uri.parse('tel:$phoneNo');
-    await launchUrl(url);
-  }
 
   TextEditingController nameController =
   TextEditingController();
@@ -98,7 +95,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
               const SizedBox(height: 14,),
-              DoctorCard(name: widget.name, desc: widget.desc, availability: widget.availability, image: widget.image.isNotEmpty ? widget.image : 'assets/avatar.png',),
+              DoctorCard(name: widget.name, desc: widget.desc, availability: widget.availability, image: widget.image.isNotEmpty ? widget.image : 'assets/avatar.png', phoneNo: widget.phoneNo,),
               const SizedBox(height: 8,),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),

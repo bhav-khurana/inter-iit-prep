@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:interiit_prep/features/edTech/functions/api.dart';
 import 'package:interiit_prep/features/foodtech/components/endButton.dart';
 import 'package:interiit_prep/features/foodtech/components/infoText.dart';
@@ -23,6 +24,7 @@ class _CreateSetPageState extends State<CreateSetPage> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController noOfCardsController = TextEditingController();
+  TextEditingController textController = TextEditingController();
 
   bool loading = false;
 
@@ -96,6 +98,14 @@ class _CreateSetPageState extends State<CreateSetPage> {
               Center(
                 child: GestureDetector(
                   onTap: () {
+                    if (nameController.text.isEmpty || noOfCardsController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fields cannot be empty')));
+                      return;
+                    }
+                    if (int.tryParse(noOfCardsController.text) == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter valid values')));
+                      return;
+                    }
                     chooseFiles();
                   },
                   child: Container(
@@ -120,7 +130,44 @@ class _CreateSetPageState extends State<CreateSetPage> {
                 ),
               ),
               Spacer(),
-              EndButton(text: 'Create Set', color: AppColors.greenColor)
+              // TextField(
+              //   style: GoogleFonts.lato(
+              //       color: AppColors.primaryBlackColor
+              //   ),
+              //   decoration: InputDecoration(
+              //     hintText: 'Type text here (Max 200 words)',
+              //     hintStyle: GoogleFonts.lato(
+              //         textStyle: TextStyle(
+              //             fontSize: 15,
+              //             color: AppColors.infoGreyColor
+              //         )
+              //     ),
+              //     contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              //     enabledBorder: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //       borderSide: BorderSide(width: 0.5, color: AppColors.infoGreyColor)
+              //     ),
+              //     focusedBorder: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(12),
+              //     ),
+              //   ),
+              //   maxLines: 5,
+              //   keyboardType: TextInputType.multiline,
+              // ),
+              SizedBox(height: 50,),
+              GestureDetector(
+                onTap:() async {
+                  if (nameController.text.isEmpty || noOfCardsController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fields cannot be empty')));
+                    return;
+                  }
+                  if (int.tryParse(noOfCardsController.text) == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please enter valid values')));
+                    return;
+                  }
+                },
+                child: EndButton(text: 'Create Set', color: AppColors.greenColor),
+              )
             ],
           ),
         ),

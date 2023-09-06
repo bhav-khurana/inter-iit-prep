@@ -51,7 +51,7 @@ class API {
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $openAIKey}',
+          'Authorization': 'Bearer $openAIKey',
         },
         body: jsonEncode({
           "model": "gpt-3.5-turbo",
@@ -60,6 +60,7 @@ class API {
       );
       if (response.statusCode == 200) {
         String content = jsonDecode(response.body)['choices'][0]['message']['content'];
+        print(content);
         int calorieCount = int.parse(content);
         messages.add({
           'role': 'assistant',
@@ -67,6 +68,7 @@ class API {
         });
         return calorieCount;
       }
+      print(response.body);
       return -1;
     } catch (e) {
       debugPrint(e.toString());

@@ -28,6 +28,12 @@ class _HomeState extends State<Home> {
   ];
 
   @override
+  void initState() {
+    currIdx = widget.page;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
@@ -42,9 +48,9 @@ class _HomeState extends State<Home> {
         currentIndex: currIdx,
         onTap: (index) => setState(() => currIdx = index),
         items: [
-          FloatingNavbarItem(customWidget: SvgPicture.asset('assets/food.svg', color: currIdx == 0 ? Colors.white : Colors.black, height: 22, width: 22,)),
-          FloatingNavbarItem(customWidget: Icon(Icons.favorite_border_outlined, color: currIdx == 1 ? Colors.white : Colors.black, size: 22,)),
-          FloatingNavbarItem(customWidget: Image.asset('assets/flashcard.png', color: currIdx == 2 ? Colors.white : Colors.black, height: 26, width: 26,)),
+          FloatingNavbarItem(customWidget: Image.asset('assets/calorieIcon.png', color: currIdx == 0 ? Colors.white : Colors.black, height: 25, width: 25,)),
+          FloatingNavbarItem(customWidget: Image.asset('assets/stetho.png', color: currIdx == 1 ? Colors.white : Colors.black, height: 22, width: 22,)),
+          FloatingNavbarItem(customWidget: Image.asset('assets/flashcard.png', color: currIdx == 2 ? Colors.white : Colors.black, height: 23, width: 23,)),
         ],
       ),
     );

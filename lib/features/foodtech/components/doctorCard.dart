@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../shared/appColors.dart';
 
@@ -10,9 +11,16 @@ class DoctorCard extends StatelessWidget {
     required this.desc,
     required this.availability,
     required this.image,
+    required this.phoneNo,
   }) : super(key: key);
 
   final String name, desc, availability, image;
+  final int phoneNo;
+
+  _makePhoneCall(int phoneNo) async {
+    var url = Uri.parse('tel:$phoneNo');
+    await launchUrl(url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +82,7 @@ class DoctorCard extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.call, color: AppColors.greenColor,),
             onPressed: () async {
-              // await _makePhoneCall(7087341267);
+              await _makePhoneCall(phoneNo);
             },
           )
         ],

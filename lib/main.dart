@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:interiit_prep/features/welcome/welcomeScreen.dart';
+import 'package:interiit_prep/features/welcome/landingPage.dart';
 import 'package:interiit_prep/shared/appColors.dart';
 
 import 'home.dart';
@@ -17,7 +17,7 @@ void main() async {
         initialRoute: '/',
         routes: {
           '/': (context) => const Splash(),
-          '/welcome': (context) => const WelcomeScreen(),
+          '/welcome': (context) => const LandingPage(),
           '/home': (context) => const Home(page: 0,),
         },
       )
@@ -36,12 +36,12 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedSplashScreen(
-        splash: const Icon(Icons.home),
+        splash: const Icon(Icons.home,),
         splashIconSize: 220,
-        duration: 2000,
+        duration: 10,
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: AppColors.primaryColor,
-        nextScreen: const Home(page: 0,),
+        nextScreen: LandingPage(),
       ),
     );
   }

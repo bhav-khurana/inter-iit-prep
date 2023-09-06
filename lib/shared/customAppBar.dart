@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
         onTap: () {
           Navigator.pop(context);
         },
-        child: Icon(Icons.arrow_back_ios, size: 18,),
+        child: SizedBox(width: 30, height: 30, child: Icon(Icons.arrow_back_ios, size: 18,)),
       ),
       centerTitle: true,
     );
