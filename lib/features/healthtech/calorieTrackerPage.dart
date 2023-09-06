@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interiit_prep/features/healthtech/components/progessIndicator.dart';
+import 'package:interiit_prep/features/healthtech/functions/api.dart';
 import 'package:interiit_prep/shared/appColors.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/foodItemsContainer.dart';
@@ -15,6 +15,28 @@ class CalorieTrackerPage extends StatefulWidget {
 }
 
 class _CalorieTrackerPageState extends State<CalorieTrackerPage> {
+
+  refresh() {
+    setState(() {});
+  }
+
+  Future<List<int>> getCalories() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getInt('calorieGoal') != null) {
+      int calorieGoal = prefs.getInt('calorieGoal') ?? 0;
+      int currCalories = prefs.getInt('currCalories') ?? 0;
+      return [calorieGoal, currCalories];
+    } else {
+      int age = prefs.getInt('userAge') ?? 20;
+      int currWeight = prefs.getInt('userCurrWeight') ?? 54;
+      int targetWeight = prefs.getInt('userTargetWeight') ?? 65;
+      String expectedTime = prefs.getString('userExpectedTime') ?? '4 weeks';
+      int calorieGoal = await API.getCalorieCount([], age, currWeight, targetWeight, expectedTime);
+      int currCalories = prefs.getInt('currCalories') ?? 0;
+      await prefs.setInt('calorieGoal', calorieGoal);
+      return [calorieGoal, currCalories];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,28 +54,41 @@ class _CalorieTrackerPageState extends State<CalorieTrackerPage> {
           ),
           width: screenWidth,
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Daily Goal: 2200',
-                  style: GoogleFonts.lato(
-                    textStyle: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white
-                    ),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 14,),
-                CircleProgress(currValue: 1932, totalValue: 2200),
-              ],
+            child: FutureBuilder(
+              future: getCalories(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return Text('Error :(');
+                  }
+                  List<int> data = snapshot.data ?? [0,0];
+                  int goal = data[0], current = data[1];
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Daily Goal: $goal',
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 14,),
+                      CircleProgress(currValue: current, totalValue: goal),
+                    ],
+                  );
+                }
+                return CircularProgressIndicator();
+              },
             ),
           ),
         ),
-        FoodItemsContainer(foodType: 'Breakfast',),
-        FoodItemsContainer(foodType: 'Lunch',),
-        FoodItemsContainer(foodType: 'Dinner',),
+        FoodItemsContainer(foodType: 'Breakfast', refresh: refresh),
+        FoodItemsContainer(foodType: 'Lunch', refresh: refresh),
+        FoodItemsContainer(foodType: 'Dinner', refresh: refresh),
       ],
     );
   }

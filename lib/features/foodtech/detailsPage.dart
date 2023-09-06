@@ -27,7 +27,7 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
 
-  String appointmentDate = 'Tomorrow (29 Aug)';
+  String appointmentDate = 'Tomorrow (8 Sept)';
 
   _makePhoneCall(int phoneNo) async {
     var url = Uri.parse('tel:$phoneNo');
@@ -75,7 +75,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     itemHeight: null,
                     value: appointmentDate,
                     icon: const Icon(Icons.keyboard_arrow_down),
-                    items: ['Tomorrow (29 Aug)', '30 Aug', '31 Aug'].map((String item) {
+                    items: ['Tomorrow (8 Sept)', '9 Sept', '10 Sept'].map((String item) {
                       return DropdownMenuItem(
                         value: item,
                         child: Text(

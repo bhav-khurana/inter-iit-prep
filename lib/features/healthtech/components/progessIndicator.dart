@@ -20,7 +20,7 @@ class _CircleProgressState extends State<CircleProgress> {
       animationDuration: 1000,
       radius: 70.0,
       lineWidth: 15.0,
-      percent: widget.currValue/widget.totalValue,
+      percent: widget.currValue/widget.totalValue >= 1 ? 1 : widget.currValue/widget.totalValue,
       center: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -45,11 +45,11 @@ class _CircleProgressState extends State<CircleProgress> {
                 )
             ),
           ),
-          Spacer()
+          Spacer(),
         ],
       ),
       backgroundColor: Colors.white,
-      progressColor: Color(0xffffbc11),
+      progressColor: AppColors.yellowColor,
     );
   }
 }

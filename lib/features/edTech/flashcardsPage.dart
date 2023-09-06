@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:interiit_prep/features/foodtech/components/infoText.dart';
 import 'package:interiit_prep/shared/appColors.dart';
 import 'package:interiit_prep/shared/customAppBar.dart';
-import 'package:interiit_prep/shared/textWidgets.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'components/flashcard.dart';

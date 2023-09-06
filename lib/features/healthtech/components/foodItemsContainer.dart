@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:interiit_prep/features/healthtech/components/inputField.dart';
 import 'package:interiit_prep/features/healthtech/components/itemTile.dart';
+import 'package:interiit_prep/features/healthtech/functions/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../shared/appColors.dart';
 
 class FoodItemsContainer extends StatefulWidget {
-  const FoodItemsContainer({Key? key, required this.foodType}) : super(key: key);
+  const FoodItemsContainer({Key? key, required this.foodType, required this.refresh}) : super(key: key);
 
   final String foodType;
+  final VoidCallback refresh;
 
   @override
   State<FoodItemsContainer> createState() => _FoodItemsContainerState();
@@ -31,10 +33,20 @@ class _FoodItemsContainerState extends State<FoodItemsContainer> {
   }
 
   Future<void> addItemToList(String item, String quantity) async {
+    if (item.isEmpty || quantity.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fields cannot be empty',)));
+      return;
+    }
     SharedPreferences prefs = await SharedPreferences.getInstance();
     items = jsonDecode(prefs.getString('${widget.foodType}ItemList') ?? jsonEncode([]));
     items.add([item, quantity]);
     await prefs.setString('${widget.foodType}ItemList', jsonEncode(items));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please wait'),));
+
+    int caloriesIncreased = await API.getCaloriesToBeIncreased([], item, quantity);
+    int currCalories = prefs.getInt('currCalories') ?? 0;
+    await prefs.setInt('currCalories', currCalories + caloriesIncreased);
+    widget.refresh();
   }
 
   @override

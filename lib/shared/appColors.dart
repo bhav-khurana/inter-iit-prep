@@ -7,5 +7,6 @@ class AppColors {
   static const Color primaryBlackColor = Colors.black;
   static const Color infoGreyColor = Color(0xff666666);
   static const Color lightGreyColor = Color(0xffdedede);
+  static const Color yellowColor = Color(0xffffbc11);
 
 }
