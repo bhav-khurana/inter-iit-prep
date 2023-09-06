@@ -27,11 +27,13 @@ class _CalorieTrackerPageState extends State<CalorieTrackerPage> {
       int currCalories = prefs.getInt('currCalories') ?? 0;
       return [calorieGoal, currCalories];
     } else {
+      String gender = prefs.getString('userGender') ?? 'Male';
       int age = prefs.getInt('userAge') ?? 20;
       int currWeight = prefs.getInt('userCurrWeight') ?? 54;
       int targetWeight = prefs.getInt('userTargetWeight') ?? 65;
       String expectedTime = prefs.getString('userExpectedTime') ?? '4 weeks';
-      int calorieGoal = await API.getCalorieCount([], age, currWeight, targetWeight, expectedTime);
+      String comments = prefs.getString('userComments') ?? '';
+      int calorieGoal = await API.getCalorieCount([], gender, age, currWeight, targetWeight, expectedTime, comments);
       int currCalories = prefs.getInt('currCalories') ?? 0;
       await prefs.setInt('calorieGoal', calorieGoal);
       return [calorieGoal, currCalories];
@@ -67,7 +69,7 @@ class _CalorieTrackerPageState extends State<CalorieTrackerPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Daily Goal: $goal',
+                        'Daily Goal: $goal cal',
                         style: GoogleFonts.lato(
                           textStyle: TextStyle(
                               fontSize: 16,

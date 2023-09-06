@@ -9,6 +9,7 @@ import '../../shared/appColors.dart';
 class InfoPage extends StatefulWidget {
   const InfoPage({
     Key? key,
+    this.title,
     required this.question,
     required this.hint,
     required this.controller,
@@ -20,6 +21,7 @@ class InfoPage extends StatefulWidget {
   final TextEditingController controller;
   final String buttonText;
   final Function func;
+  final String? title;
 
   @override
   State<InfoPage> createState() => _InfoPageState();
@@ -32,6 +34,8 @@ class _InfoPageState extends State<InfoPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        TitleText(text: widget.title ?? ''),
+        SizedBox(height: 60,),
         MediumText(text: widget.question),
         const SizedBox(height: 14,),
         InputField(controller: widget.controller, hint: widget.hint),
@@ -51,7 +55,8 @@ class _InfoPageState extends State<InfoPage> {
                 )
             ),
           ),
-        )
+        ),
+        // Spacer(),
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:interiit_prep/features/edTech/functions/api.dart';
 import 'package:interiit_prep/features/foodtech/components/endButton.dart';
 import 'package:interiit_prep/features/foodtech/components/infoText.dart';
 import 'package:interiit_prep/features/healthtech/components/inputField.dart';
@@ -34,10 +35,24 @@ class _CreateSetPageState extends State<CreateSetPage> {
       File file = File(result.files.single.path!);
       PDFDoc doc = await PDFDoc.fromFile(file);
       String docText = await doc.text;
+      List<String> ls = docText.split(' ');
+      ls.removeWhere((element) => element.isEmpty);
+      int words = ls.length;
+      if (words > 200) {
+        setState(() {
+          loading = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('The number of words in the PDF should be less than or equal to 200')));
+        return File('');
+      }
+      String flashcardContent = await API.getSummary([], docText, int.parse(noOfCardsController.text));
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-          'flashcardSet ${nameController.text} text', docText);
+      
+
+      await prefs.setString('flashcardSet ${nameController.text} text', docText);
+      await prefs.setString('flashcardSet ${nameController.text} flashcardContent', flashcardContent);
       await prefs.setInt('flashcardSet ${nameController.text} noOfCards', int.parse(noOfCardsController.text));
+      print(prefs.getString('flashcardSet ${nameController.text} flashcardContent'));
       List<String> sets = prefs.getStringList('flashcardSets') ?? [];
       sets.add(nameController.text);
       await prefs.setStringList('flashcardSets', sets);
@@ -59,7 +74,15 @@ class _CreateSetPageState extends State<CreateSetPage> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: Column(
+          child: loading ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              Center(child: CircularProgressIndicator(color: AppColors.greenColor,)),
+              SizedBox(height: 12,),
+              Center(child: InfoText(text: 'Please wait while we create flashcards for you',),),
+            ],
+          ) : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomAppBar(title: 'Create Set'),

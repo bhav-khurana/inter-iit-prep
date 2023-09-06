@@ -61,9 +61,11 @@ class InfoPages extends StatefulWidget {
 class _InfoPagesState extends State<InfoPages> {
 
   TextEditingController genderController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController targetWeightController = TextEditingController();
   TextEditingController durationController = TextEditingController();
+  TextEditingController commentsController = TextEditingController();
 
   PageController pageController = PageController();
   int _curr = 0;
@@ -88,16 +90,34 @@ class _InfoPagesState extends State<InfoPages> {
           });
         },
         children: [
-          InfoPage(question: 'What\'s your gender?', hint: 'Male/Female', controller: genderController, buttonText: 'Swipe for next >', func: (){
+          InfoPage(title: 'Let\'s start by asking a few questions', question: 'What\'s your gender?', hint: 'Male/Female', controller: genderController, buttonText: 'Next >', func: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString('userGender', genderController.text);
             pageController.jumpToPage(_curr+1);
           },),
-          InfoPage(question: 'What\'s your current weight? (in kg)', hint: 'e.g. 50, 65', controller: weightController, buttonText: 'Swipe for next >', func: (){
+          InfoPage(title: 'Let\'s start by asking a few questions', question: 'What\'s your age (in years)?', hint: 'e.g. 20, 45', controller: ageController, buttonText: 'Next >', func: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setInt('userAge', int.parse(ageController.text));
             pageController.jumpToPage(_curr+1);
           },),
-          InfoPage(question: 'What\'s your target weight? (in kg)', hint: 'e.g. 50, 70', controller: targetWeightController, buttonText: 'Swipe for next >', func: (){
+          InfoPage(title: 'Let\'s start by asking a few questions', question: 'What\'s your current weight? (in kg)', hint: 'e.g. 50, 65', controller: weightController, buttonText: 'Next >', func: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setInt('userCurrWeight', int.parse(weightController.text));
             pageController.jumpToPage(_curr+1);
           },),
-          InfoPage(question: 'Expected duration to reach your target', hint: 'e.g. 2 weeks, 1 month', controller: durationController, buttonText: 'Get Started >', func: () async {
+          InfoPage(title: 'Let\'s start by asking a few questions', question: 'What\'s your target weight? (in kg)', hint: 'e.g. 50, 70', controller: targetWeightController, buttonText: 'Next >', func: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setInt('userTargetWeight', int.parse(targetWeightController.text));
+            pageController.jumpToPage(_curr+1);
+          },),
+          InfoPage(title: 'Let\'s start by asking a few questions', question: 'Expected duration to reach your target', hint: 'e.g. 2 weeks, 1 month', controller: durationController, buttonText: 'Next >', func: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString('userExpectedTime', durationController.text);
+            pageController.jumpToPage(_curr+1);
+          },),
+          InfoPage(title: 'Let\'s start by asking a few questions', question: 'Any other comments?', hint: 'e.g. i take these medicines daily, etc.', controller: commentsController, buttonText: 'Get Started >', func: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString('userComments', commentsController.text);
             await setTrue();
             widget.refresh();
           },),

@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:interiit_prep/features/edTech/components/flashcardTile.dart';
 import 'package:interiit_prep/features/edTech/createSetPage.dart';
 import 'package:interiit_prep/features/edTech/flashcardsPage.dart';
+import 'package:interiit_prep/features/edTech/functions/api.dart';
 import 'package:interiit_prep/shared/appColors.dart';
 import 'package:interiit_prep/shared/textWidgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,6 +28,7 @@ class _EdTechScreenState extends State<EdTechScreen> {
         'name': set,
         'text': prefs.getString('flashcardSet $set text'),
         'noOfCards': prefs.getInt('flashcardSet $set noOfCards'),
+        'flashcardContent': prefs.getString('flashcardSet $set flashcardContent'),
       });
     }
     return flashcardSets;
@@ -98,8 +100,9 @@ class _EdTechScreenState extends State<EdTechScreen> {
                     children: [
                       for (var set in sets)
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => FlashcardsPage()));
+                          onTap: () async {
+                            print(set['flashcardContent']);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => FlashcardsPage(title: set['name'], noOfCards: set['noOfCards'], flashcardContent: set['flashcardContent'],)));
                           },
                           child: FlashcardTile(name: set['name'], noOfCards: set['noOfCards']),
                         )
