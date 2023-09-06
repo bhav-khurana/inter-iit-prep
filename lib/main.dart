@@ -36,7 +36,7 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedSplashScreen(
-        splash: const Icon(Icons.home,),
+        splash: const Icon(Icons.home, color: AppColors.primaryColor,),
         splashIconSize: 220,
         duration: 10,
         splashTransition: SplashTransition.fadeTransition,

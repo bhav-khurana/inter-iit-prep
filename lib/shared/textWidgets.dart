@@ -32,7 +32,7 @@ class TitleText extends StatelessWidget {
       text,
       style: GoogleFonts.lato(
           textStyle: const TextStyle(
-              fontSize: 26,
+              fontSize: 24,
               color: AppColors.primaryBlackColor
           )
       ),
