@@ -77,7 +77,7 @@ class _CreateSetPageState extends State<CreateSetPage> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: loading ? CustomLoad(text: 'Please wait while we create flashcards for you',) : Column(
+          child: loading ? CustomLoad(text: 'Please wait while we create flashcards for you', color: AppColors.greenColor,) : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomAppBar(title: 'Create Set'),
