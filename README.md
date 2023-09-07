@@ -62,6 +62,17 @@ An [item tile](lib/features/healthtech/components/itemTile.dart) widget to show 
 - `String item`: the item name to be shown
 - `String quantity`: the quantity of the item to be shown
 
+### Custom Nav Bar
+A [custom outlined button](lib/shared/customNavBar.dart) which takes in the following parameters:
+- `Color color`: the background color of the navbar
+- `List<String> imageList`: the list of image paths (icons) to be shown in the nav bar
+- `int currIdx`: the current index parameter which takes into account the currently selected icon
+- `Function(int) updateIdx`: a function to update the current index in the parent widget
+
+### Custom App Bar
+A [custom app bar](lib/shared/customAppBar.dart) to show a back button and a centred title on the top of a screen. It takes in the following parameters:
+- `String title`: the title to be shown
+
 ### Doctor Card
 A [doctor card](lib/features/foodtech/components/doctorCard.dart) widget to display the details of the doctor in the form of a card. It takes in the following parameters:
 - `String name`: name of the doctor to be shown the card
@@ -74,5 +85,50 @@ A [doctor card](lib/features/foodtech/components/doctorCard.dart) widget to disp
 An [end button](lib/features/foodtech/components/endButton.dart) widget to be shown at the bottom of a screen. It takes in the following parameters:
 - `String text`: the text to be shown on the button
 - `Color color`: the background color of the button
+
+### Custom Outlined Button
+A [custom outlined button](lib/features/edTech/components/customOutlinedButton.dart) widget which takes in the following parameters:
+- `String text`: the text to be shown on the button
+- `Color color`: the outline color of the button
+
+### Flashcard
+A [flashcard](lib/features/edTech/components/flashcard.dart) widget to show text in a flashcard. It takes in the following parameters:
+- `Color color`: color of the text to be shown
+- `Color bgcolor`: the background color of the flashcard
+- `String text`: the text to be shown in the flashcard
+
+### Flashcard tile
+A [flashcard tile](lib/features/edTech/components/flashcardTile.dart) to show the information of a flashcard set. It takes in the following parameters:
+- `String name`: the name of the flashcard set
+- `int noOfCards`: number of cards in the flashcard set
+
+### Custom Loader
+A [custom load](lib/shared/customLoad.dart) widget to show a circular progress indicator and some info text. It takes in the following parameters:
+- `String? text`: the text to be shown while loading
+- `Color color`: the color of the circular progress indicator
+
+### Info Page
+An [info page](lib/features/healthtech/infoPage.dart) widget to display an (optional) title, a question, an input field and a text button. It takes in the following parameters:
+- `String? title`: (optional) title to be shown on the page
+- `String question`: the question to be asked
+- `String hint`: the hint text to be shown in the input field
+- `TextEditingController controller`: a controller to control the text in the input field
+- `String buttonText`: the text to be shown the in the button
+- `Function func`: the function to be called on button click
+
+### Title/Medium text
+Simple [text widgets](lib/shared/textWidgets.dart) to display medium/title text in the `GoogleFonts.lato` font. It takes in the following parameters:
+- `String text`: the text to be displayed
+
+### Info text
+A simple [info text](lib/features/foodtech/components/infoText.dart) widget to display info text in the `GoogleFonts.lato` font and a light grey color. It takes in the following parameters:
+- `String text`: the text to be displayed
+
+
+
+
+
+
+
 
 
