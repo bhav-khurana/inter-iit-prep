@@ -63,7 +63,7 @@ An [item tile](lib/features/healthtech/components/itemTile.dart) widget to show 
 - `String quantity`: the quantity of the item to be shown
 
 ### Custom Nav Bar
-A [custom outlined button](lib/shared/customNavBar.dart) which takes in the following parameters:
+A [custom navigation bar](lib/shared/customNavBar.dart) which takes in the following parameters:
 - `Color color`: the background color of the navbar
 - `List<String> imageList`: the list of image paths (icons) to be shown in the nav bar
 - `int currIdx`: the current index parameter which takes into account the currently selected icon
