@@ -9,6 +9,7 @@ import 'package:interiit_prep/shared/textWidgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../foodtech/components/infoText.dart';
+import 'components/customOutlinedButton.dart';
 
 class EdTechScreen extends StatefulWidget {
   const EdTechScreen({Key? key}) : super(key: key);
@@ -53,22 +54,7 @@ class _EdTechScreenState extends State<EdTechScreen> {
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.greenColor),
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white
-                  ),
-                  child: Text(
-                    'Create New +',
-                    style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                            color: AppColors.greenColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17)),
-                  ),
-                ),
+                child: CustomOutlinedButton(text: 'Create New +', color: AppColors.greenColor,),
               ),
             ),
             SizedBox(height: 12,),

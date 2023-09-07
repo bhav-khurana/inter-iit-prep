@@ -9,6 +9,7 @@ import 'package:interiit_prep/features/foodtech/components/infoText.dart';
 import 'package:interiit_prep/features/healthtech/components/inputField.dart';
 import 'package:interiit_prep/shared/appColors.dart';
 import 'package:interiit_prep/shared/customAppBar.dart';
+import 'package:interiit_prep/shared/customLoad.dart';
 import 'package:interiit_prep/shared/textWidgets.dart';
 import 'package:pdf_text/pdf_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,15 +77,7 @@ class _CreateSetPageState extends State<CreateSetPage> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: loading ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Center(child: CircularProgressIndicator(color: AppColors.greenColor,)),
-              SizedBox(height: 12,),
-              Center(child: InfoText(text: 'Please wait while we create flashcards for you',),),
-            ],
-          ) : Column(
+          child: loading ? CustomLoad(text: 'Please wait while we create flashcards for you',) : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomAppBar(title: 'Create Set'),

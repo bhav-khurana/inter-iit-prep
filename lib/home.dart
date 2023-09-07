@@ -5,6 +5,7 @@ import 'package:interiit_prep/features/edTech/edTechScreenn.dart';
 import 'package:interiit_prep/features/foodtech/foodTechScreen.dart';
 import 'package:interiit_prep/features/healthtech/healthTechScreen.dart';
 import 'package:interiit_prep/shared/appColors.dart';
+import 'package:interiit_prep/shared/customNavBar.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -27,6 +28,11 @@ class _HomeState extends State<Home> {
     const EdTechScreen(),
   ];
 
+  updateIdx(int idx) {
+    currIdx = idx;
+    setState(() {});
+  }
+
   @override
   void initState() {
     currIdx = widget.page;
@@ -39,20 +45,11 @@ class _HomeState extends State<Home> {
       extendBody: true,
       backgroundColor: AppColors.primaryColor,
       body: pages[currIdx],
-      bottomNavigationBar: FloatingNavbar(
-        margin: const EdgeInsets.all(16),
-        backgroundColor: AppColors.greenColor,
-        selectedBackgroundColor: Colors.transparent,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.black,
-        currentIndex: currIdx,
-        onTap: (index) => setState(() => currIdx = index),
-        items: [
-          FloatingNavbarItem(customWidget: Image.asset('assets/calorieIcon.png', color: currIdx == 0 ? Colors.white : Colors.black, height: 25, width: 25,)),
-          FloatingNavbarItem(customWidget: Image.asset('assets/stetho.png', color: currIdx == 1 ? Colors.white : Colors.black, height: 22, width: 22,)),
-          FloatingNavbarItem(customWidget: Image.asset('assets/flashcard.png', color: currIdx == 2 ? Colors.white : Colors.black, height: 23, width: 23,)),
-        ],
-      ),
+      bottomNavigationBar: CustomNavBar(color: AppColors.greenColor, imageList: const [
+        'assets/calorieIcon.png',
+        'assets/stetho.png',
+        'assets/flashcard.png',
+      ], currIdx: currIdx, updateIdx: updateIdx),
     );
   }
 }
